@@ -26,9 +26,23 @@
             <div id="bookmark-<%= index %>">
                 <p>name: <%= bookmark.name %></p>
                 url: <a href="<%= bookmark.url %>"><%= bookmark.url %></a>
+                    <form action="/tags" method="POST">
+                        <label for="tag">Choose a tag:</label>
+                    
+                        <select name="tag" id="tag">
+                            <option value="no-tag">noTag</option>
+                            <option value="shopping">Shopping</option>
+                            <option value="entertainment">Entertainment</option>
+                            <option value="social-media">Social Media</option>
+                        </select>
+                        <button type="submit" id="submit">Submit</button>
+                    </form>
                 <% comments.map(comment => { %>
-                   <% if (comment.bookmarkId === bookmark.id) { %>
-                       <p>comment: <%= comment.text %></p>
+                   <% if (comment.BookmarkId === bookmark.id) { %>
+                       <p>comment: <%= comment.text %></p> 
+                        <form action="/comments/<%= comment.id %>?_method=DELETE" method="post">
+                            <input id="bookmark-<%= index %>-delete" type="submit" value="delete">
+                        </form>
                 <% }}) %>
             </div>
             <div style="display: flex;">

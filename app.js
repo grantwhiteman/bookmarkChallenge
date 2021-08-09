@@ -18,6 +18,23 @@ app.get('/bookmarks', async (req, res) => {
 	});
 });
 
+app.post('/comments/:id', async (req, res) => {
+	await Comment.create({
+		text    : req.body.comment,
+		BookmarkId : req.params.id
+	});
+	res.redirect('/bookmarks');
+});
+
+app.delete('/comments/:id', async (req, res) => {
+	await Comment.destroy({
+		where : {
+			id : req.params.id
+		}
+	});
+	res.redirect('/bookmarks');
+});
+
 app.post('/bookmarks/filter', async (req, res) => {
 	const bookmarks = await Bookmark.findAll({
 		where: {
